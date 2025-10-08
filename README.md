@@ -1,1 +1,1 @@
-# IT-311-LabAct
+# Laboratory Activities
