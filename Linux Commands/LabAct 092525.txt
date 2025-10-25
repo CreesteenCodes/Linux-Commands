@@ -1,0 +1,78 @@
+User and Group Management in Ubuntu with Docker
+
+[nodel] (local) root@192.168.0.29 ~
+$ docker pull ubuntu
+Using default tag: latest
+Latest: Pulling from library/ubuntu
+4b3ffd8ccb52: Pull complete
+Digest: sha256:66460d557b25769b102175144d538d88219c077c678a49af4afca6fbfc1b5252 Status: Downloaded newer image for ubuntu:latest
+docker.io/library/ubuntu:latest
+[nodel] (local) root@192.168.0.29 ~
+$ docker run -it ubuntu
+root@9a5f3b0200c9: /# apt update
+Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:5 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [33.1 kB]
+Get:6 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1587 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+Get:8 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2624 kB] 
+Get:9 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+Get:10 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1167 KB] 
+Get:11 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB] 
+Get:12 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB] 
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2754 kB] 
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1937 kB] 
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1952 kB] 
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [35.9 kB] 
+Get:17 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [33.9 kB] 
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.4 kB] 
+Fetched 34.4 MB in 2s (14.6 MB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+2 packages can be upgraded. Run 'apt list --upgradable' to see them.
+root@9a5f3b0200c9:/# apt install -y sudo
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+ libapparmor1
+The following NEW packages will be installed:
+ libapparmori sudo
+0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.
+Need to get 998 kB of archives.
+After this operation, 3669 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libapparmor1 amd64 4.0.1really4.0.1-0ubuntu0.24.04.4 [50.6 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 sudo amd64 1.9.15p5-3ubuntu5.24.04.1 [948 kB]
+Fetched 998 kB in 1s (1266 kB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package libapparmor1:amd64.
+(Reading database ... 4381 files and directories currently installed.)
+Preparing to unpack .../libapparmor1_4.0.1really4.0.1-0ubuntu0.24.04.4_amd64.deb ... 
+Unpacking libapparmor1:amd64 (4.0.1really4.0.1-0ubuntu0.24.04.4) ...
+Selecting previously unselected package sudo.
+Preparing to unpack .../sudo_1.9.15p5-3ubuntu5.24.04.1_amd64.deb ...
+Unpacking sudo (1.9.15p5-3ubuntu5.24.04.1) ...
+Setting up libapparmor1:amd64 (4.0.1really4.0.1-0ubuntu0.24.04.4) ...
+Setting up sudo (1.9.15p5-3ubuntu5.24.04.1) ..
+Processing triggers for libc-bin (2.39-0ubuntu8.6) 
+root@9a5f3b0200c9:/ # apt install -y passwd
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+passwd is already the newest version (1:4.13+dfsg1-4ubuntu3.2).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+root@9a5f3b0200c9:/ # sudo useradd -m student1
+root@9a5f3b0200c9:/ # sudo passwd student1
+New password:
+Retype new password:
+passwd: password updated successfully
+root@9a5f3b0200c9:/ # sudo groupadd group1
+root@9a5f3b0200c9:/ # sudo usermod -aG group1 student1
+root@9a5f3b0200c9:/ # grep group1 /etc/group
+group1:x:1002:student1
+root@9a5f3b0200c9:/ # grep student 1 /etc/passwd
+student1:x:1001:1001::/home/student1:/bin/sh
+root@9a5f3b0200c9:/ #

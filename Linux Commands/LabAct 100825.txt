@@ -1,0 +1,349 @@
+User Management and System Monitoring Backup
+
+christinejoyagkis@christinejoyagkis:~$ mkdir Testing
+christinejoyagkis@christinejoyagkis:~$ cd Testing
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo useradd Admin1
+[sudo] password for christinejoyagkis: 
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo passwd Admin1
+New password: 
+Retype new password: 
+passwd: password updated successfully
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo useradd Staff1
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo passwd Staff1
+New password: 
+Retype new password: 
+passwd: password updated successfully
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo useradd Staff2
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo passwd Staff2
+New password: 
+Retype new password: 
+passwd: password updated successfully
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo useradd Staff3
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo passwd Staff3
+New password: 
+Retype new password: 
+passwd: password updated successfully
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo usermod -aG sudo Admin1
+christinejoyagkis@christinejoyagkis:~/Testing$ getent passwd Admin1 Staff1 Staff2 Staff3
+Admin1:x:1003:1004::/home/Admin1:/bin/sh
+Staff1:x:1004:1005::/home/Staff1:/bin/sh
+Staff2:x:1005:1006::/home/Staff2:/bin/sh
+Staff3:x:1006:1007::/home/Staff3:/bin/sh
+christinejoyagkis@christinejoyagkis:~/Testing$ groups Admin1
+Admin1 : Admin1 sudo
+christinejoyagkis@christinejoyagkis:~/Testing$ mkdir -p Backup
+christinejoyagkis@christinejoyagkis:~/Testing$ cd Backup
+christinejoyagkis@christinejoyagkis:~/Testing/Backup$ cd..
+cd..: command not found
+christinejoyagkis@christinejoyagkis:~/Testing/Backup$ cd ..
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo chown -R Admin1:Admin1 Backup
+christinejoyagkis@christinejoyagkis:~/Testing$ sudo chmod -R 770 Backup
+christinejoyagkis@christinejoyagkis:~/Testing$ su Admin1
+Password: 
+$ whoami
+Admin1
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           392M  1.6M  391M   1% /run
+/dev/sda2        49G  5.5G   41G  12% /
+tmpfs           2.0G     0  2.0G   0% /dev/shm
+tmpfs           5.0M  8.0K  5.0M   1% /run/lock
+tmpfs           392M  124K  392M   1% /run/user/1000
+$ df -h > Backup/disk_usage.txt
+$ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            3916        1803         503          55        1657        2112
+Swap:              0           0           0
+$ free -m Backup/memory_usage.txt
+
+Usage:
+ free [options]
+
+Options:
+ -b, --bytes         show output in bytes
+     --kilo          show output in kilobytes
+     --mega          show output in megabytes
+     --giga          show output in gigabytes
+     --tera          show output in terabytes
+     --peta          show output in petabytes
+ -k, --kibi          show output in kibibytes
+ -m, --mebi          show output in mebibytes
+ -g, --gibi          show output in gibibytes
+     --tebi          show output in tebibytes
+     --pebi          show output in pebibytes
+ -h, --human         show human-readable output
+     --si            use powers of 1000 not 1024
+ -l, --lohi          show detailed low and high memory statistics
+ -L, --line          show output on a single line
+ -t, --total         show total for RAM + swap
+ -v, --committed     show committed memory and commit limit
+ -s N, --seconds N   repeat printing every N seconds
+ -c N, --count N     repeat printing N times, then exit
+ -w, --wide          wide output
+
+     --help     display this help and exit
+ -V, --version  output version information and exit
+
+For more details see free(1).
+$ top
+
+top - 16:11:30 up 14 min,  1 user,  load average: 0.41, 0.89, 0.67
+Tasks: 211 total,   1 running, 210 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  2.3 us,  4.2 sy,  0.0 ni, 88.4 id,  0.0 wa,  0.0 hi,  5.1 si,  0.0 st 
+MiB Mem :   3916.6 total,    544.9 free,   1759.7 used,   1657.5 buff/cache     
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.   2156.9 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND  
+   1892 christi+  20   0 3949644 389604 157048 S   9.0   9.7   1:20.63 gnome-s+ 
+   3920 christi+  20   0   19.2g 609052  98836 S   5.0  15.2   2:06.42 Isolate+ 
+   4460 christi+  20   0  553492  52356  41908 S   3.3   1.3   0:04.02 gnome-t+ 
+   3049 christi+  20   0   11.2g 537728 222372 S   0.7  13.4   1:23.56 firefox  
+   4620 Admin1    20   0   14500   5640   3592 R   0.7   0.1   0:00.13 top      
+   2016 christi+  20   0  388668  12060   7028 S   0.3   0.3   0:07.91 ibus-da+ 
+   3923 christi+  20   0 2442672  93844  70392 S   0.3   2.3   0:01.47 Isolate+ 
+   4139 root      20   0       0      0      0 I   0.3   0.0   0:00.30 kworker+ 
+   4613 root      20   0       0      0      0 I   0.3   0.0   0:00.19 kworker+ 
+      1 root      20   0   23200  14028   9420 S   0.0   0.3   0:03.11 systemd  
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.03 kthreadd 
+      3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_wo+ 
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+ 
+      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+ 
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+ 
+      7 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+ 
+      8 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+ 
+$ top -n 1 > Backup/top_processes.txt
+$ ps aux
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.3  0.3  23200 14028 ?        Ss   15:56   0:03 /sbin/init sp
+root           2  0.0  0.0      0     0 ?        S    15:56   0:00 [kthreadd]
+root           3  0.0  0.0      0     0 ?        S    15:56   0:00 [pool_workque
+root           4  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-rc
+root           5  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-sy
+root           6  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-kv
+root           7  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-sl
+root           8  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-ne
+root           9  0.3  0.0      0     0 ?        I    15:56   0:02 [kworker/0:0-
+root          11  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/0:0H
+root          12  0.0  0.0      0     0 ?        I    15:56   0:00 [kworker/u8:0
+root          13  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-mm
+root          14  0.0  0.0      0     0 ?        I    15:56   0:00 [rcu_tasks_kt
+root          15  0.0  0.0      0     0 ?        I    15:56   0:00 [rcu_tasks_ru
+root          16  0.0  0.0      0     0 ?        I    15:56   0:00 [rcu_tasks_tr
+root          17  0.1  0.0      0     0 ?        S    15:56   0:01 [ksoftirqd/0]
+root          18  0.1  0.0      0     0 ?        I    15:56   0:01 [rcu_preempt]
+root          19  0.0  0.0      0     0 ?        S    15:56   0:00 [rcu_exp_par_
+root          20  0.0  0.0      0     0 ?        S    15:56   0:00 [rcu_exp_gp_k
+root          21  0.0  0.0      0     0 ?        S    15:56   0:00 [migration/0]
+root          22  0.0  0.0      0     0 ?        S    15:56   0:00 [idle_inject/
+root          23  0.0  0.0      0     0 ?        S    15:56   0:00 [cpuhp/0]
+root          24  0.0  0.0      0     0 ?        S    15:56   0:00 [cpuhp/1]
+root          25  0.0  0.0      0     0 ?        S    15:56   0:00 [idle_inject/
+root          26  0.0  0.0      0     0 ?        S    15:56   0:00 [migration/1]
+root          27  0.7  0.0      0     0 ?        S    15:56   0:06 [ksoftirqd/1]
+root          29  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/1:0H
+root          30  0.0  0.0      0     0 ?        I    15:56   0:00 [kworker/u9:0
+root          32  0.0  0.0      0     0 ?        S    15:56   0:00 [kdevtmpfs]
+root          33  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-in
+root          34  0.0  0.0      0     0 ?        S    15:56   0:00 [kauditd]
+root          35  0.0  0.0      0     0 ?        S    15:56   0:00 [khungtaskd]
+root          36  0.0  0.0      0     0 ?        S    15:56   0:00 [oom_reaper]
+root          37  0.1  0.0      0     0 ?        I    15:56   0:01 [kworker/u9:1
+root          39  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-wr
+root          40  0.0  0.0      0     0 ?        S    15:56   0:00 [kcompactd0]
+root          41  0.0  0.0      0     0 ?        SN   15:56   0:00 [ksmd]
+root          42  0.0  0.0      0     0 ?        SN   15:56   0:00 [khugepaged]
+root          43  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-ki
+root          44  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-kb
+root          45  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-bl
+root          46  0.0  0.0      0     0 ?        S    15:56   0:00 [irq/9-acpi]
+root          47  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-tp
+root          48  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-at
+root          49  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-md
+root          50  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-md
+root          51  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-ed
+root          52  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-de
+root          53  0.0  0.0      0     0 ?        S    15:56   0:00 [watchdogd]
+root          57  0.0  0.0      0     0 ?        S    15:56   0:00 [kswapd0]
+root          58  0.0  0.0      0     0 ?        S    15:56   0:00 [ecryptfs-kth
+root          59  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-kt
+root          60  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-ac
+root          61  0.2  0.0      0     0 ?        I    15:56   0:02 [kworker/u10:
+root          62  0.0  0.0      0     0 ?        S    15:56   0:00 [scsi_eh_0]
+root          63  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-sc
+root          64  0.0  0.0      0     0 ?        S    15:56   0:00 [scsi_eh_1]
+root          65  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-sc
+root          66  0.4  0.0      0     0 ?        I    15:56   0:04 [kworker/u10:
+root          67  0.2  0.0      0     0 ?        I    15:56   0:02 [kworker/u10:
+root          70  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-ml
+root          71  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-ip
+root          73  0.0  0.0      0     0 ?        I    15:56   0:00 [kworker/u8:1
+root          81  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-ks
+root          83  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/u11:
+root          84  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/u12:
+root          85  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/u13:
+root          98  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-ch
+root         148  0.0  0.0      0     0 ?        S    15:56   0:00 [scsi_eh_2]
+root         149  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-sc
+root         201  0.1  0.0      0     0 ?        S    15:56   0:00 [jbd2/sda2-8]
+root         202  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-ex
+root         250  0.0  0.4  67228 18336 ?        S<s  15:56   0:00 /usr/lib/syst
+root         270  0.0  0.0      0     0 ?        I    15:56   0:00 [kworker/0:3-
+root         318  0.0  0.2  30596  8452 ?        Ss   15:56   0:00 /usr/lib/syst
+root         354  0.0  0.0      0     0 ?        S    15:56   0:00 [psimon]
+systemd+     397  0.0  0.1  17560  7424 ?        Ss   15:56   0:00 /usr/lib/syst
+systemd+     403  0.0  0.3  21712 13256 ?        Ss   15:56   0:00 /usr/lib/syst
+systemd+     408  0.0  0.1  91048  7824 ?        Ssl  15:56   0:00 /usr/lib/syst
+root         514  0.0  0.0      0     0 ?        I    15:56   0:00 [kworker/1:4-
+root         543  0.0  0.0      0     0 ?        I    15:56   0:00 [kworker/u9:4
+root         545  0.0  0.0      0     0 ?        I    15:56   0:00 [kworker/u9:6
+root         562  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-cr
+root         573  0.0  0.0      0     0 ?        S    15:56   0:00 [irq/18-vmwgf
+root         576  0.0  0.0      0     0 ?        I<   15:56   0:00 [kworker/R-tt
+avahi        650  0.0  0.1   8668  4464 ?        Ss   15:56   0:00 avahi-daemon:
+message+     651  0.1  0.1  12072  7040 ?        Ss   15:56   0:01 @dbus-daemon 
+gnome-r+     660  0.0  0.4 512808 16196 ?        Ssl  15:56   0:00 /usr/libexec/
+polkitd      670  0.0  0.2 384640 10864 ?        Ssl  15:56   0:00 /usr/lib/polk
+root         672  0.0  0.1 313376  7116 ?        Ssl  15:56   0:00 /usr/libexec/
+root         683  1.1  1.0 1996540 40448 ?       Ssl  15:56   0:10 /usr/lib/snap
+root         691  0.0  0.1 313292  7620 ?        Ssl  15:56   0:00 /usr/libexec/
+root         697  0.0  0.0   9424  2776 ?        Ss   15:56   0:00 /usr/sbin/cro
+root         701  0.0  0.1 309936  6816 ?        Ssl  15:56   0:00 /usr/libexec/
+root         707  0.0  0.2  18136  8888 ?        Ss   15:56   0:00 /usr/lib/syst
+root         711  0.0  0.3 469256 13856 ?        Ssl  15:56   0:00 /usr/libexec/
+avahi        747  0.0  0.0   8480  1412 ?        S    15:57   0:00 avahi-daemon:
+root         751  0.0  0.4 336372 19012 ?        Ssl  15:57   0:00 /usr/sbin/Net
+root         760  0.0  0.1  17380  6456 ?        Ss   15:57   0:00 /usr/sbin/wpa
+syslog       767  0.0  0.1 222588  6144 ?        Ssl  15:57   0:00 /usr/sbin/rsy
+root         824  0.0  0.3 392104 12744 ?        Ssl  15:57   0:00 /usr/sbin/Mod
+root        1011  0.0  0.2  38232 11988 ?        Ss   15:57   0:00 /usr/sbin/cup
+root        1014  0.0  0.5 112256 22980 ?        Ssl  15:57   0:00 /usr/bin/pyth
+lp          1045  0.0  0.1  16832  6740 ?        S    15:57   0:00 /usr/lib/cups
+cups-br+    1060  0.0  0.4 268348 19852 ?        Ssl  15:57   0:00 /usr/sbin/cup
+root        1062  0.0  0.2 314824  9324 ?        Ssl  15:57   0:00 /usr/sbin/gdm
+kernoops    1066  0.0  0.0  12744  2216 ?        Ss   15:57   0:00 /usr/sbin/ker
+kernoops    1076  0.0  0.0  12744  2100 ?        Ss   15:57   0:00 /usr/sbin/ker
+rtkit       1148  0.0  0.0  22940  3356 ?        SNsl 15:57   0:00 /usr/libexec/
+colord      1286  0.0  0.3 320072 14504 ?        Ssl  15:57   0:00 /usr/libexec/
+root        1325  0.0  0.2 316680  9076 ?        Ssl  15:57   0:00 /usr/libexec/
+root        1505  0.0  0.0      0     0 ?        I<   15:57   0:00 [kworker/u12:
+root        1632  0.0  0.2 242580 10396 ?        Sl   15:57   0:00 gdm-session-w
+christi+    1651  0.1  0.3  21596 12632 ?        Ss   15:57   0:01 /usr/lib/syst
+christi+    1653  0.0  0.0  21464  3648 ?        S    15:57   0:00 (sd-pam)
+christi+    1666  0.0  0.3 113520 12344 ?        S<sl 15:57   0:00 /usr/bin/pipe
+christi+    1674  0.0  0.1  97736  5932 ?        Ssl  15:57   0:00 /usr/bin/pipe
+christi+    1679  0.0  0.4 406884 18764 ?        S<sl 15:57   0:00 /usr/bin/wire
+christi+    1680  0.0  0.2 110184 11628 ?        S<sl 15:57   0:00 /usr/bin/pipe
+christi+    1681  0.0  0.2 316508  9968 ?        SLsl 15:57   0:00 /usr/bin/gnom
+christi+    1686  0.1  0.1  10832  6612 ?        Ss   15:57   0:00 /usr/bin/dbus
+christi+    1723  0.0  0.1 610292  7440 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    1728  0.0  0.1 309308  5972 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    1738  0.0  0.1 235668  5940 tty2     Ssl+ 15:57   0:00 /usr/libexec/
+christi+    1745  0.0  0.4 298232 16584 tty2     Sl+  15:57   0:00 /usr/libexec/
+root        1771  0.0  0.0   2704  1936 ?        Ss   15:57   0:00 fusermount3 -
+christi+    1823  0.0  0.1 162652  6956 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    1824  0.0  0.1  91548  5600 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    1833  0.0  0.1 314292  7884 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    1844  0.0  0.1 459708  6968 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    1847  0.0  0.4 733348 18168 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    1892  9.6  9.7 3949644 389604 ?      Ssl  15:57   1:22 /usr/bin/gnom
+christi+    1893  0.0  0.1 382936  7756 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    1909  0.0  0.1   9480  5040 ?        S    15:57   0:00 /usr/bin/dbus
+christi+    1970  0.0  0.1 236068  7672 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    1992  0.0  0.4 654700 17368 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    2004  0.0  1.0 592744 42848 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2013  0.0  0.6 2519264 26960 ?       Sl   15:57   0:00 /usr/bin/gjs 
+christi+    2016  0.9  0.3 388668 12060 ?        Ssl  15:57   0:08 /usr/bin/ibus
+christi+    2019  0.0  0.1 383516  6468 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2020  0.0  0.4 412868 19332 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2022  0.0  0.2 431660 11972 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2025  0.0  0.1 458736  7992 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2026  0.0  0.4 411236 18112 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2033  0.0  0.6 741548 24960 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2036  0.0  0.5 523492 23284 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2041  0.0  0.2 323628 11432 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2042  0.0  0.1 531084  6820 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2046  0.0  0.1 309560  6208 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2047  0.0  0.2 543188 11384 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2048  0.0  0.1 385816  7904 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2049  0.0  0.2 393660 10320 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2053  0.0  0.4 412184 19212 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2059  0.0  0.1 305492  7224 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    2079  0.0  1.4 823684 59920 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    2144  0.0  0.6 546656 24156 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    2169  0.0  0.1 236644  7020 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    2171  0.3  0.7 420956 28344 ?        Sl   15:57   0:02 /usr/libexec/
+christi+    2190  0.0  0.1 310424  7124 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    2199  0.0  0.2 389184 10132 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2240  0.0  0.3 416236 14912 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    2244  0.0  0.2 389124  9068 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    2249  0.0  0.6 890756 24364 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2267  0.0  0.1 310760  6968 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2275  0.0  0.2  39136 11952 ?        Ss   15:57   0:00 /snap/snapd-d
+christi+    2277  0.0  0.1 309792  6500 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2289  0.0  0.1 389376  7952 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2291  0.0  0.7 751580 29816 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2310  0.0  0.1 309772  6392 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2372  0.0  0.7 429612 30896 ?        Sl   15:57   0:00 /snap/snapd-d
+christi+    2378  0.3  0.1 236768  7140 ?        Sl   15:57   0:02 /usr/libexec/
+christi+    2407  0.0  0.1 230108  5736 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2417  0.0  0.2 535708  8792 ?        Sl   15:57   0:00 /usr/libexec/
+christi+    2478  0.1  1.6 2812392 67200 ?       Sl   15:57   0:01 gjs /usr/shar
+christi+    2506  0.0  0.6 734520 26760 ?        SNsl 15:57   0:00 /usr/libexec/
+christi+    2519  0.0  0.1 236340  6332 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2529  0.0  0.6 2519292 26768 ?       Sl   15:57   0:00 /usr/bin/gjs 
+christi+    2539  0.0  0.3 701596 14364 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2545  0.0  0.9 556292 40096 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2561  0.0  0.6 417176 24980 ?        Ssl  15:57   0:00 /usr/libexec/
+christi+    2660  0.0  0.6 491156 25508 ?        Sl   15:58   0:00 /usr/bin/upda
+root        2806  0.1  0.0      0     0 ?        I<   16:02   0:00 [kworker/0:1H
+root        2985  0.0  0.0      0     0 ?        S    16:02   0:00 [psimon]
+christi+    3049 14.9 13.4 11716648 537728 ?     Sl   16:02   1:24 /snap/firefox
+christi+    3239  0.0  0.1  21284  4480 ?        Sl   16:02   0:00 /snap/firefox
+christi+    3319  0.0  1.2 228588 49152 ?        Sl   16:02   0:00 /snap/firefox
+christi+    3343  0.0  0.8 295816 34092 ?        S    16:02   0:00 /snap/firefox
+christi+    3362  0.2  2.4 2453432 97548 ?       Sl   16:02   0:01 /snap/firefox
+christi+    3369  0.0  1.1 441188 46296 ?        Sl   16:02   0:00 /snap/firefox
+christi+    3393  0.6  3.6 2489572 145904 ?      Sl   16:02   0:03 /snap/firefox
+christi+    3440  0.0  0.5 1765384 23612 ?       Sl   16:02   0:00 /usr/bin/snap
+root        3769  0.0  0.0      0     0 ?        I<   16:02   0:00 [kworker/1:2H
+christi+    3916  0.0  1.3 444784 52432 ?        Sl   16:02   0:00 /snap/firefox
+christi+    3920 23.2 15.0 20093380 605292 ?     Sl   16:02   2:08 /snap/firefox
+christi+    3923  0.2  2.3 2442656 93844 ?       Sl   16:02   0:01 /snap/firefox
+christi+    3935  0.0  1.7 2416360 68412 ?       Sl   16:02   0:00 /snap/firefox
+root        4139  0.0  0.0      0     0 ?        I    16:03   0:00 [kworker/1:0-
+christi+    4199  0.0  1.7 2417672 68424 ?       Sl   16:03   0:00 /snap/firefox
+christi+    4241  0.0  1.7 2417672 68432 ?       Sl   16:04   0:00 /snap/firefox
+christi+    4449  0.0  0.4  31900 19108 ?        S    16:05   0:00 /usr/bin/pyth
+christi+    4453  0.0  0.6 458412 27760 ?        Sl   16:05   0:00 /usr/bin/gnom
+christi+    4460  1.1  1.3 553492 52356 ?        Ssl  16:05   0:04 /usr/libexec/
+christi+    4473  0.0  0.1  11028  4988 pts/0    Ss   16:05   0:00 bash
+root        4570  0.0  0.0      0     0 ?        I    16:08   0:00 [kworker/u9:2
+root        4573  0.0  0.0      0     0 ?        I<   16:08   0:00 [kworker/0:2H
+root        4601  0.1  0.1  12728  5200 pts/0    S    16:09   0:00 su Admin1
+Admin1      4605  0.0  0.0   2800  1640 pts/0    S    16:09   0:00 sh
+root        4608  0.0  0.0      0     0 ?        I    16:10   0:00 [kworker/1:1]
+root        4613  0.2  0.0      0     0 ?        I    16:10   0:00 [kworker/u10:
+root        4622  0.0  0.0      0     0 ?        I    16:11   0:00 [kworker/0:1-
+Admin1      4630  900  0.1  13612  4320 pts/0    R+   16:12   0:00 ps aux
+$ ps aux > Backup/ps_aux.txt
+$ ls Backup
+disk_usage.txt	ps_aux.txt  top_processes.txt
+$ sudo apt update | tee Backup/update_log.txt
+[sudo] password for Admin1: 
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://ph.archive.ubuntu.com/ubuntu noble InRelease
+Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Hit:3 http://ph.archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:4 http://ph.archive.ubuntu.com/ubuntu noble-backports InRelease
+Get:5 http://security.ubuntu.com/ubuntu noble-security/main amd64 Components [21.5 kB]
+Get:6 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Components [208 B]
+Get:7 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Components [52.3 kB]
+Get:8 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Components [208 B]
+Fetched 200 kB in 3s (61.0 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+80 packages can be upgraded. Run 'apt list --upgradable' to see them.
+$
