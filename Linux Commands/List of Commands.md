@@ -11,7 +11,7 @@
 - sudo useradd **FValencia**
 - sudo passwd **FValencia**
 - cat /etc/group
-- sudo usermod -aG Groupiee **ECBacay**
+- sudo usermod -aG **Groupiee** **ECBacay**
 - sudo usermod -g **Groupiee** **ECBacay**
 - sudo usermod -aG Groupiee **FValencia**
 - sudo usermod -g **Groupiee** **FValencia**
