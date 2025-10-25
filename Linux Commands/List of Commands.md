@@ -33,6 +33,47 @@ Linux Commands
 - sudo groupadd **group1**
 - sudo usermod -aG **group1** **student1**
 - grep **group1** /etc/group
-
 - grep **student1** /etc/passwd
 
+## IT 311 Laboratory Activity on October 08, 2025
+- mkdir **Testing**
+- cd **Testing**
+- sudo useradd **Admin1**
+- sudo passwd **Admin1**
+- sudo useradd **Staff1**
+- sudo passwd **Staff1**
+- sudo useradd **Staff2**
+- sudo passwd **Staff2**
+- sudo useradd **Staff3**
+- sudo passwd **Staff3**
+- sudo usermod -aG sudo **Admin1**
+- getent passwd **Admin1 Staff1 Staff2 Staff3**
+- groups **Admin1**
+- mkdir -p **Backup**
+- cd **Backup**
+- cd ..
+- sudo chown -R Admin1:Admin1 **Backup**
+- sudo chmod -R 770 **Backup**
+- su **Admin1**
+- whoami
+- df -h 
+- df -h > **Backup/disk_usage.txt** 
+- free -m  
+- free -m > **Backup/memory_usage.txt**
+- top
+- q
+- top -n 1 > **Backup/top_processess.txt**
+- ps aux
+- ps aux > **Backup/ps_aux.txt** 
+- ls **Backup**
+- sudo apt update | tee **Backup/update_log.txt**
+
+## IT 311 Laboratory Activity on October 23, 2025
+- uptime
+- ps aux
+- df -h
+- free -h
+- sudo apt install htop
+- htop
+- q
+- tail -n 20 /var/log/syslog
