@@ -269,3 +269,4 @@ christinejoyagkis@christinejoyagkis:~$ tail -n 20 /var/log/syslog
 2025-10-25T09:48:08.743847+08:00 christinejoyagkis kernel: workqueue: blk_mq_run_work_fn hogged CPU for >10000us 7 times, consider switching to WQ_UNBOUND
 2025-10-25T09:48:08.806076+08:00 christinejoyagkis kernel: workqueue: blk_mq_run_work_fn hogged CPU for >10000us 11 times, consider switching to WQ_UNBOUND
 2025-10-25T09:48:39.430328+08:00 christinejoyagkis kernel: workqueue: e1000_watchdog [e1000] hogged CPU for >10000us 11 times, consider switching to WQ_UNBOUND
+christinejoyagkis@christinejoyagkis:~$
