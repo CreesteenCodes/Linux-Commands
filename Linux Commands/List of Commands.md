@@ -24,8 +24,8 @@ Docker Ubuntu Environment
 - docker pull ubuntu
 - docker run -it ubuntu
 - apt update
-- apt install y sudo
-- apt install y passwd
+- apt install -y sudo
+- apt install -y passwd
 
 Linux Commands
 - sudo useradd -m **student1**
