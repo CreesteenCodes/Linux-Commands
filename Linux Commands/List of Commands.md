@@ -77,3 +77,14 @@ Linux Commands
 - htop
 - q
 - tail -n 20 /var/log/syslog
+
+## IT 311 Laboratory Activity on October 29, 2025
+- docker pull ubuntu
+- docker run -dit --name **node1** ubuntu bash
+- docker run -dit --name **node2** ubuntu bash
+- docker exec **node1** apt update -y
+- docker exec **node1** apt install iputils-ping -y
+docker exec **node2** apt update -y
+- docker exec **node2** apt install iputils-ping -y
+- docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' **node1**
+- docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' **node2**
