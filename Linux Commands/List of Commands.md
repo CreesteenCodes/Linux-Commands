@@ -76,6 +76,7 @@ Linux Commands
 - sudo apt install htop
 - htop
 - q
+
 - tail -n 20 /var/log/syslog
 
 ## IT 311 Laboratory Activity on October 29, 2025
@@ -88,3 +89,24 @@ Linux Commands
 - docker exec **node2** apt install iputils-ping -y
 - docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' **node1**
 - docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' **node2**
+
+## IT 311 Laboratory Activity on November 5, 2025
+- docker pull ubuntu
+- docker run -dit --name **node1** ubuntu bash
+- docker run -dit --name **node2** ubuntu bash
+- docker exec **node1** apt update -y && docker exec **node1** apt install iputils-ping -y
+- docker exec **node2** apt update -y && docker exec **node2** apt install iputils-ping -y
+- docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' **node1**
+- docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' **node2**
+- docker exec **node1** ping **172.17.0.3**
+- Ctrl + C
+- docker network create **peer_net**
+- docker network ls
+- docker run -dit --network **peer_net** --name **peer1** ubuntu bash
+- docker run -dit --network **peer_net** --name **peer2** ubuntu bash
+- docker exec **peer1** apt update -y && docker exec **peer1** apt install iputils-ping -y
+- docker exec **peer2** apt update -y && docker exec **peer2** apt install iputils-ping -y
+- docker exec **peer1** ping **peer2**
+- Ctrl + C
+- docker network ls
+- docker network inspect **peer_net**
