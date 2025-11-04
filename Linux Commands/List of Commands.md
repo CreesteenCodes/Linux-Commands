@@ -76,7 +76,6 @@ Linux Commands
 - sudo apt install htop
 - htop
 - q
-
 - tail -n 20 /var/log/syslog
 
 ## IT 311 Laboratory Activity on October 29, 2025
@@ -110,3 +109,4 @@ Linux Commands
 - Ctrl + C
 - docker network ls
 - docker network inspect **peer_net**
+
