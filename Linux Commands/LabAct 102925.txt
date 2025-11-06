@@ -79,7 +79,7 @@ debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Ter
 86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debcon f/FrontEnd/Readline.pm line 8.)
 debconf: falling back to frontend: Teletype
 Setting up iputils-ping (3:20240117-1ubuntu0.1) ..
-[nodel] (local) root@192.168.0.24
+[nodel] (local) root@192.168.0.24 ~
 $ docker exec node2 apt update -y
 
 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
