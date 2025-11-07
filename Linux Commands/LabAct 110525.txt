@@ -1,0 +1,376 @@
+Peer-to-Peer Network Setup
+
+[nodel] (local) root@192.168.0.24 ~
+$ docker pull ubuntu
+Using default tag: latest
+Latest: Pulling from library/ubuntu
+4b3ffd8ccb52: Pull complete
+Digest: sha256:66460d557b25769b102175144d538d88219c077c678a49af4afca6fbfc1b5252 Status: Downloaded newer image for ubuntu:latest
+docker.io/library/ubuntu:latest
+[nodel] (local) root@192.168.0.24 ~
+$ docker run -dit --name nodel ubuntu bash
+11da2136c13e52af798cc246223441474def01965d8996734ed01da7aac0d1e7
+[node1] (local) root@192.168.0.24 ~
+$ docker run -dit --name node2 ubuntu bash
+9c3c7e3cd89b0ee915c0edafce80375c3a1c20f3f137c53b76c3ff9178bc2df3
+[nodel] (local) root@192.168.0.24 ~
+$ docker exec nodel apt update -y
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB] 
+Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB] 
+Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:5 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [33.1 kB] 
+Get:6 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1635 kB] 
+Get:7 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+Get:8 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2703 kB] 
+Get:9 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1170 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB] 
+Get:11 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB] 
+Get:12 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB] 
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1939 kB] 
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2842 kB] 
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2001 kB] 
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [35.9 kB] 
+Get:17 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.4 kB] 
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [33.9 kB] Fetched 34.6 MB in 2s (14.4 MB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+2 packages can be upgraded. Run 'apt list --upgradable' to see them.
+[nodel] (local) root@192.168.0.24 ~
+$ docker exec nodel apt install iputils-ping -y
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+libcap2-bin libpam-cap
+The following NEW packages will be installed:
+iputils-ping libcap2-bin libpam-cap
+0 upgraded, 3 newly installed, 0 to remove and 2 not upgraded.
+Need to get 91.2 kB of archives.
+After this operation, 322 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcap2-bin amd64 1:2.66-5ubuntu2.2 [34.2 kB] 
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 iputils-ping amd64 3:20240117-1ubuntu0.1 [44.6 kB] 
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpam-cap amd64 1:2.66-5ubuntu2.2 [12.5 kB] 
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 91.2 kB in Os (1087 kB/s)
+Selecting previously unselected package libcap2-bin.
+(Reading database ... 4381 files and directories currently installed.) 
+Preparing to unpack ../libcap2-bin_1%3a2.66-5ubuntu2.2_amd64.deb ...
+Unpacking libcap2-bin (1:2.66-5ubuntu2.2) ...
+Selecting previously unselected package iputils-ping.
+Preparing to unpack .../iputils-ping_3%3a20240117-1ubuntu0.1_amd64.deb 
+Unpacking iputils-ping (3:20240117-1ubuntu0.1)
+Selecting previously unselected package libpam-cap:amd64.
+Preparing to unpack .../libpam-cap_1%3a2.66-5ubuntu2.2_amd64.deb ... 
+Unpacking libpam-cap: amd64 (1:2.66-5ubuntu2.2)
+Setting up libcap2-bin (1:2.66-5ubuntu2.2)
+Setting up libpam-cap: amd64 (1:2.66-5ubuntu2.2)
+debconf: unable to initialize frontend: Dialog 
+debconf: (TERM is not set, so the dialog frontend is not usable.) 
+debconf: falling back to frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /u sr/local/lib/x86_64-linux-gnu/perl/5.38.2 /usr/local/share/perl/5.38.2 /usr/lib/x86_64-linux-gnu/perl5/5.38 /usr/share/perl5 /usr/lib/x
+86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debcon f/FrontEnd/Readline.pm line 8.)
+debconf: falling back to frontend: Teletype
+Setting up iputils-ping (3:20240117-1ubuntu0.1) ..
+[nodel] (local) root@192.168.0.24 ~
+$ docker exec node2 apt update -y
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:2 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1635 KB]
+Get:3 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Get:4 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1170 kB]
+Get:5 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [33.1 kB]
+Get:6 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2703 kB] 
+Get:7 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB] 
+Get:9 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB] 
+Get:10 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB] 
+Get:11 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB] 
+Get:12 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB] 
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [35.9 kB] 
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2842 kB] 
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1939 kB] 
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2001 kB] 
+Get:17 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [33.9 kB] 
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.4 kB] Fetched 34.6 MB in 3s (10.5 MB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+2 packages can be upgraded. Run 'apt list --upgradable' to see them.
+[node1] (local) root@192.168.0.24 ~
+$ docker exec node2 apt install iputils-ping -y
+Reading package lists...
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+ libcap2-bin libpam-cap
+The following NEW packages will be installed:
+ iputils-ping libcap2-bin libpam-cap
+0 upgraded, 3 newly installed, 0 to remove and 2 not upgraded. Need to get 91.2 kB of archives.
+Need to get 91.2 B of archives.
+After this operation, 322 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcap2-bin amd64 1:2.66-5ubuntu2.2 [34.2 kB] Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 iputils-ping amd64 3:20240117-1ubuntu0.1 [44.6 kB] Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpam-cap amd64 1:2.66-5ubuntu2.2 [12.5 kB] 
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 91.2 kB in Os (197 kB/s)
+Selecting previously unselected package libcap2-bin.
+(Reading database ... 4381 files and directories currently installed.) 
+Preparing to unpack .../libcap2-bin_1%3a2.66-5ubuntu2.2_amd64.deb ...
+Unpacking libcap2-bin (1:2.66-5ubuntu2.2)
+Selecting previously unselected package iputils-ping.
+Preparing to unpack .../iputils-ping_3%3a20240117-1ubuntu0.1_amd64.deb
+Unpacking iputils-ping (3:20240117-1ubuntu0.1) ...
+Selecting previously unselected package libpam-cap:amd64.
+Preparing to unpack .../libpam-cap_1%3a2.66-5ubuntu2.2_amd64.deb...
+Unpacking libpam-cap:amd64 (1:2.66-5ubuntu2.2) ...
+Setting up libcap2-bin (1:2.66-5ubuntu2.2)
+Setting up libpam-cap:amd64 (1:2.66-5ubuntu2.2)
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /u sr/local/lib/x86_64-linux-gnu/perl/5.38.2 /usr/local/share/perl/5.38.2 /usr/lib/x86_64-linux-gnu/perl5/5.38 /usr/share/perl5 /usr/lib/x
+86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debcon f/FrontEnd/Readline.pm line 8.)
+debconf: falling back to frontend: Teletype
+Setting up iputils-ping (3:20240117-1ubuntu0.1)
+[node1] (local) root@192.168.0.24 ~
+$ docker inspect -f '{{range NetworkSettings.Networks)}{{.IPAddress}} {{end}}' nodel 
+172.17.0.2
+[node1] (local) root@192.168.0.24 ~
+$ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' node2
+172.17.0.3
+$ docker exec nodel ping 172.17.0.3
+PING 172.17.0.3 (172.17.0.3) 56(84) bytes of data.
+64 bytes from 172.17.0.3: icmp_seq=1 ttl=64 _time=0.131 ms 
+64 bytes from 172.17.0.3: icmp_seq=2 ttl=64_time=0.073 ms 
+64 bytes from 172.17.0.3: icmp_seq=3 ttl=64_time=0.075 ms 
+^Ccontext canceled
+[node1] (local) root@192.168.0.24 ~
+$ docker network create peer_net
+7b077798b4c876b9cd8fe5d806f44eddcde0ab765311b172b9a405f368da4f16
+[nodel] (local) root@192.168.0.24 ~
+$ docker network ls
+NETWORK ID     NAME              DRIVER   SCOPE
+ce724bdb7c25   bridge            bridge   local
+82c6665cd780   docker_gwbridge   bridge   local
+9880da73bb1b   host              host     local
+10de9ff0d88c   none              null     bridge
+7b077798b4c8   peer_net          local    local
+[nodel] (local) root@192.168.0.24 ~
+$ docker run -dit --network peer_net --name nodel ubuntu bash
+docker: Error response from daemon: Conflict. The container name "/nodel" is already in use by container "11da2136c13e52af798cc24622344 1474def01965d8996734ed01da7aac0d1e7". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+[nodel] (local) root@192.168.0.24 ~
+$ docker run -dit --network peer_net --name peer1 ubuntu bash 
+f3f15a14a9ad792c238b8975875d22e23e751137d71b6f7f59c97af47f77234a
+[node1] (local) root@192.168.0.24 ~
+$ docker run -dit --network peer_net --name peer2 ubuntu bash 
+34d9599f31262657f21b89241443a6edf671fd19df14cda2c7d0ef1617dfcc12 
+[nodel] (local) root@192.168.0.24 ~
+$ docker exec peer1 apt update -y && docker exec peerl apt install iputils-ping -y
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB] 
+Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1635 kB] 
+Get:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:6 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB] 
+Get:7 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB] 
+Get:8 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+Get:9 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1170 kB]
+Get:10 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2703 kB] 
+Get:11 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+Get:12 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [33.1 kB] 
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [35.9 kB] 
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2001 kB] 
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2842 kB] 
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1939 kB] 
+Get:17 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.4 kB] 
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [33.9 kB] Fetched 34.6 MB in 3s (10.2 MB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+2 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+libcap2-bin libpam-cap
+The following NEW packages will be installed:
+iputils-ping libcap2-bin libpam-cap
+0 upgraded, 3 newly installed, 0 to remove and 2 not upgraded.
+Need to get 91.2 kB of archives.
+After this operation, 322 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcap2-bin amd64 1:2.66-5ubuntu2.2 [34.2 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 iputils-ping amd64 3:20240117-1ubuntu0.1 [44.6 kB] 
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpam-cap amd64 1:2.66-5ubuntu2.2 [12.5 kB] 
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 91.2 kB in Os (1026 kB/s)
+Selecting previously unselected package libcap2-bin.
+(Reading database ... 4381 files and directories currently installed.) 
+Preparing to unpack .../libcap2-bin_1%3a2.66–5ubuntu2.2_amd64.deb ... 
+Unpacking libcap2-bin (1:2.66-5ubuntu2.2)
+Selecting previously unselected package iputils-ping.
+Preparing to unpack .../iputils-ping_3%3a20240117-1ubuntu0.1_amd64.deb 
+Unpacking iputils-ping (3:20240117-1ubuntu0.1)
+Selecting previously unselected package libpam-cap:amd64.
+Preparing to unpack.../libpam-cap_183a2.66-5ubuntu2.2_amd64.deb ...
+Unpacking libpam-cap: amd64 (1:2.66-5ubuntu2.2) ...
+Setting up libcap2-bin (1:2.66-5ubuntu2.2)
+Setting up libpam-cap:amd64 (1:2.66-5ubuntu2.2)
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /u
+sr/local/lib/x86_64-linux-gnu/perl/5.38.2 /usr/local/share/perl/5.38.2 /usr/lib/x86_64-linux-gnu/per15/5.38 /usr/share/perl5 /usr/lib/x
+86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debcon f/FrontEnd/Readline.pm line 8.)
+debconf: falling back to frontend: Teletype
+Setting up iputils-ping (3:20240117-1ubuntu0.1) ...
+[nodel] (local) root@192.168.0.24 -
+$ docker exec peer2 apt update -y && docker exec peer2 apt install iputils-ping -y
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB] 
+Get:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB] 
+Get:4 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB] 
+Get:5 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB] 
+Get:6 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+Get:7 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2001 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1939 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [35.9 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2842 kB]
+Get:13 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [33.9 kB]
+Get:14 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.4 kB]
+Get:15 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1635 kB]
+Get:16 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2703 kB]
+Get:17 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [33.1 kB]
+Get:18 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1170 kB]
+Fetched 34.6 MB in 3s (13.3 MB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+2 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+ libcap2-bin libpam-cap
+The following NEW packages will be installed:
+ iputils-ping libcap2-bin libpam-cap
+0 upgraded, 3 newly installed, 0 to remove and 2 not upgraded.
+Need to get 91.2 kB of archives.
+After this operation, 322 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcap2-bin amd64 1:2.66-5ubuntu2.2 [34.2 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 iputils-ping amd64 3:20240117-1ubuntu0.1 [44.6 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpam-cap amd64 1:2.66-5ubuntu2.2 [12.5 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 91.2 kB in 0s (191 kB/s)
+Selecting previously unselected package libcap2-bin.
+(Reading database ... 4381 files and directories currently installed.)
+Preparing to unpack .../libcap2-bin_1%3a2.66-5ubuntu2.2_amd64.deb
+Unpacking libcap2-bin (1:2.66-5ubuntu2.2) ...
+Selecting previously unselected package iputils-ping.
+Preparing to unpack .../iputils-ping_3%3a20240117-1ubuntu0.1_amd64.deb
+Unpacking iputils-ping (3:20240117-1ubuntu0.1) ...
+Selecting previously unselected package libpam-cap:amd64.
+Preparing to unpack .../libpam-cap_1%3a2.66-5ubuntu2.2_amd64.deb
+Unpacking libpam-cap:amd64 (1:2.66-5ubuntu2.2)
+Setting up libcap2-bin (1:2.66-5ubuntu2.2) ...
+Setting up libpam-cap:amd64 (1:2.66-5ubuntu2.2) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /u sr/local/lib/x86_64-linux-gnu/perl/5.38.2 /usr/local/share/perl/5.38.2 /usr/lib/x86_64-linux-gnu/perl5/5.38 /usr/share/perl5 /usr/lib/x
+86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debcon f/FrontEnd/Readline.pm line 8.)
+debconf: falling back to frontend: Teletype
+Setting up iputils-ping (3:20240117-1ubuntu0.1) ...
+[nodel] (local) root@192.168.0.24-
+$ docker exec peer1 ping peer2
+PING peer2 (172.20.0.3) 56(84) bytes of data.
+64 bytes from peer2.peer_net (172.20.0.3): icmp_seq=1 ttl=64_time=0.149 ms
+64 bytes from peer2.peer_net (172.20.0.3): icmp_seq=2 ttl=64 time=0.076 ms
+64 bytes from peer2.peer_net (172.20.0.3): icmp_seq=3 ttl=64 time=0.077 ms
+64 bytes from peer2.peer_net (172.20.0.3): icmp_seq=4 ttl=64 time=0.079 ms
+^Ccontext canceled
+[node1] (local) root@192.168.0.24 ~
+$ docker network ls
+NETWORK ID     NAME              DRIVER   SCOPE
+ce724bdb7c25   bridge            bridge   local
+82c6665cd780   docker_gwbridge   bridge   local
+9880da73bb1b   host              host     local
+10de9ff0d88c   none              null     bridge
+7b077798b4c8   peer_net          local    local
+[node1] (local) root@192.168.0.24 ~
+$ docker network inspect peer_net
+[
+  {
+    "Name": "peer_net",
+    "Id": "7b077798b4c876b9cd8fe5d806f44eddcde0ab765311b172b9a405f368da4f16",
+    "Created": "2025-11-04T23:21:29.8637085512",
+    "Scope": "local",
+    "Driver": "bridge",
+    "EnableIPv6": false,
+    "IPAM": {
+      "Driver": "default",
+      "Options": {},
+      "Config": [
+        {
+          "Subnet": "172.20.0.0/16",
+          "Gateway": "172.20.0.1"
+        }
+      ]
+    },
+    "Internal": false,
+    "Attachable": false,
+    "Ingress": false,
+    "ConfigFrom": {
+    "Network":
+    ""
+    },
+    "ConfigOnly": false,
+    "Containers": {
+      "34d9599f31262657f21b89241443a6edf671fd19df14cda2c7d0ef1617dfcc12": {
+        "Name": "peer2",
+        "EndpointID": "06290ce69f1cb8e4d0f900253e993b0b933384c704205da5bb4282aabfe8b558",
+        "MacAddress": "02:42:ac:14:00:03",
+        "IPv4Address": "172.20.0.3/16",
+        "IPv6Address": ""
+      },
+      "f3f15a14a9ad792c238b8975875d22e23e751137d71b6f7f59c97af47f77234a": {
+        "Name": "peer1",
+        "EndpointID": "6db8b894f5eac3357d5ebc46f039475b54c9ddf973b197fdabaebcef0a80e206",
+        "MacAddress": "02:42:ac:14:00:02",
+        "IPv4Address": "172.20.0.2/16",
+        "IPv6Address": ""
+      }
+    },
+    "Options": {},
+    "Labels": {},
+  }
+]
+[node1] (local) root@192.168.0.24 ~
+$
