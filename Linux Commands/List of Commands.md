@@ -111,4 +111,19 @@ Linux Commands
 - docker network inspect **peer_net**
 
 ## IT 311 Laboratory Activity on November 12, 2025
-- sudo
+- sudo ip link add name mynet type bridge
+- sudo ip link set mynet up
+- sudo ip addr add 192.168.50.1/24 dev mynet
+- ip addr show mynet
+- sudo ip netns add peer1
+- sudo ip netns add peer2
+- sudo ip link add veth1 type veth peer name veth2
+- sudo ip link set veth1 netns peer1
+- sudo ip link set veth2 netns peer2
+- sudo ip netns exec peer1 ip addr add 192.168.10.1/24 dev veth1
+- sudo ip netns exec peer2 ip addr add 192.168.10.2/24 dev veth2
+- sudo ip netns exec peer1 ip link set veth1 up
+- sudo ip netns exec peer2 ip link set veth2 up
+- sudo ip netns exec peer1 ip link set lo up
+- sudo ip netns exec peer2 ip link set lo up
+- sudo ip netns exec peer1 ping -c 4 192.168.10.2
