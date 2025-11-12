@@ -127,3 +127,26 @@ Linux Commands
 - sudo ip netns exec peer1 ip link set lo up
 - sudo ip netns exec peer2 ip link set lo up
 - sudo ip netns exec peer1 ping -c 4 192.168.10.2
+- sudo apt install net-tools -y
+- sudo ip link add name peernet type bridge
+- sudo ip link set peernet up
+- sudo ip addr add 192.168.100.1/24 dev peernet
+- ip addr show peernet
+- sudo ip link add veth-br type veth peer name veth-peer
+- sudo ip link set veth-br master peernet
+- sudo ip link set veth-br up
+- sudo ip link set veth-peer netns peer1
+- sudo ip netns exec peer1 ip addr add 192.168.100.10/24 dev veth-peer
+- sudo ip netns exec peer1 ip link set veth-peer up
+- sudo ip netns exec peer1 ip route add default via 192.168.100.1
+- sudo ip netns exec peer1 ping -c 4 192.168.100.1
+- sudo ip netns exec peer1 ping -c 4 google.com
+
+📝 **Observation Note**
+When testing connectivity from peer1, the following errors occurred:
+
+- `ping: connect: Network is unreachable` → indicates that the virtual interface or routing between the namespace and bridge was not properly configured.
+- `ping: google.com: Temporary failure in name resolution` → shows that DNS resolution is not available inside the namespace, likely because there’s no internet or DNS server configured.
+
+**Conclusion**:
+Namespace `peer1` could not reach the bridge or external network due to missing link setup or NAT/DNS configuration. Further network interface and routing verification is required. 
