@@ -109,6 +109,3 @@ Linux Commands
 - Ctrl + C
 - docker network ls
 - docker network inspect **peer_net**
-
-##IT 311 Laboratory Activity on November 12, 2025
-- a
