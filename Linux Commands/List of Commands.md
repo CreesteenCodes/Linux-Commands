@@ -142,7 +142,7 @@ Linux Commands
 - sudo ip netns exec **peer1** ping -c 4 **192.168.100.1**
 - sudo ip netns exec **peer1** ping -c 4 google.com
 
-`ping: google.com: Temporary failure in name resolution` → shows that DNS resolution is not available inside the namespace, likely because there’s no internet or DNS server configured.
+📝 **Note**: `ping: google.com: Temporary failure in name resolution` → shows that DNS resolution is not available inside the namespace, likely because there’s no internet or DNS server configured.
 
 - ip link show **peernet**
 - ip link show **veth-br**
@@ -152,3 +152,4 @@ Linux Commands
 - sudo ip netns exec **peer1** bash -c 'echo "nameserver **8.8.8.8**" > /etc/resolv.conf'
 - sudo ip netns exec **peer1** ping -c 4 **8.8.8.8**
 - sudo ip netns exec **peer1** ping -c 4 google.com
+
