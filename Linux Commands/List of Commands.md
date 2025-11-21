@@ -1,4 +1,4 @@
-# List of Commands Applied per Avtivity
+# List of Commands Applied per Activity
 
 ## IT 311 Laboratory Activity on September 24, 2025
 - sudo groupadd **Groupiee**
@@ -152,4 +152,5 @@ Linux Commands
 - sudo ip netns exec **peer1** bash -c 'echo "nameserver **8.8.8.8**" > /etc/resolv.conf'
 - sudo ip netns exec **peer1** ping -c 4 **8.8.8.8**
 - sudo ip netns exec **peer1** ping -c 4 google.com
+
 
